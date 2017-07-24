@@ -1,0 +1,271 @@
+# ~/.muttrc: SDF Mutt configuration
+
+# Identity
+# --------
+
+set realname="Jason Blevins"
+set from="blevins.141@osu.edu"
+alternates "jblevins@xbeta.org|jrblevin@sdf.org|jrblevin@sdf.lonestar.org|jrb11@duke.edu|jrblevin@gmail.com"
+
+# Aliases
+# -------
+
+set alias_file="~/.mutt-aliases"
+set sort_alias=alias
+set reverse_alias=yes
+source $alias_file
+
+# Mailboxes
+# ---------
+
+set spoolfile="/mail/jrblevin"           # Inbox
+set folder="/mail/maildir/j/jrblevin/"   # Folder prefix
+set record="=archive"                    # Sent mail folder
+set postponed="=drafts"                  # Drafts folder
+set mbox="="                             # Keep read mail in inbox.
+
+# Outgoing Headers
+# ----------------
+
+# Allow me to edit the headers when composing.
+set edit_headers=yes
+
+# Allow mutt to generate From headers.
+set use_from=yes
+
+# Set sendmail sender -f flag.
+#set envelope_from=yes
+
+# Include `my_hdr' lines in outgoing messages.
+set hdrs
+
+# Help people find my PGP key.
+my_hdr X-PGP-Key: http://jblevins.org/jrblevin.asc
+
+
+# Appearance
+# ----------
+
+# Highlight entire line instead of using ->.
+unset arrow_cursor
+
+# Number of lines to show in the pager.
+set pager_index_lines=6
+
+# Virtual lines to pad blank lines in the pager.
+set tilde
+
+# Format of the index.
+set index_format="%4C %Z %{%m.%d} %-15.15F (%4c) %s"
+
+# Don't display a + on wrapped lines.
+unset markers
+
+# Default sorting method.
+set sort=threads
+
+# Do not show help lines.
+set nohelp
+
+# Enable Display of UTF-8 Characters.
+set charset=utf-8
+
+# Don't let Page Down move to the next message.
+set pager_stop
+
+
+# Behavior
+# --------
+
+# Don't start editor immediately when composing.
+set autoedit=no
+
+# Don't ask me if i want to append.
+set noconfirmappend
+
+# Prompt when creating new files.
+set confirmcreate
+
+# Always save a copy of outgoing messages?
+set copy=yes
+
+# Purge deleted messages without asking.
+set delete=yes
+
+# Skip initial prompts when replying.
+set fast_reply=yes
+
+# Simple quotation text.
+set attribution="On %d, %n wrote:"
+
+# When forwarding messages, set the subject to Fwd: subject.
+set forw_format="Fwd: %s"
+
+# Look up addresses in my aliases.
+set reverse_alias
+
+# Use my address as it appears in the message I am replying to.
+set reverse_name
+
+# Keep files even when no messages are left.
+set save_empty
+
+# Always use reply-to if present.
+set reply_to=yes
+
+# Always quote messages when replying.
+set include
+
+# Remove my address from reply-to list.
+unset metoo
+
+# Don't ask about moving messages, just do it.
+set move=no
+
+# Don't mark unread messages as old
+set mark_old=no
+
+# Save outgoing attachments.
+set fcc_attach
+
+# When replying to a message sent by me, reply to the recipients instead.
+unset reply_self
+
+# Automatically display as text for mailcap entries with copiousoutput,.
+set implicit_autoview
+
+
+# MIME
+# ----
+
+# Ignore HTML email if possible.
+alternative_order text/enriched text/plain text/html
+auto_view text/html
+
+# Always use the mime-types defined in .mailcap.
+set implicit_autoview=yes
+
+# Use message/rfc822 type to forward messages.
+set mime_forward=ask-no
+
+
+# Character set
+# -------------
+
+charset-hook ^us-ascii$ cp1252
+charset-hook ^iso-8859-1$ cp1252
+set assumed_charset="cp1252"
+
+
+# Mailing Lists
+# -------------
+
+# Reply to the list, not an individual, by default.
+unset ignore_list_reply_to
+
+# Generate Mail-Follow-To on group/lists.
+set followup_to=yes
+
+
+# Threading
+# ---------
+
+# Use ASCII characters for threading
+set ascii_chars
+
+# Don't collapse threads with new messages.
+set collapse_unread=no
+
+
+# Displayed Headers
+# -----------------
+
+# Ignore everything not listed below.
+ignore *
+
+# Show user agent / mailer.
+unignore user-agent: x-agent: x-mailer:
+
+# Show from, date, subject, to, cc, reply-to headers.
+unignore from date subject to cc reply-to:
+
+# Display headers in this order:
+hdr_order From: Reply-to: To: Cc: Subject: Date: User-Agent: X-Mailer:
+
+
+# Color Theme
+# -----------
+
+# Format: color object foreground background [condition].
+# Colors: white, black, green, magenta, blue, cyan, yellow, red, default.
+
+# Index and application
+color status        black          blue           # status bar
+color error         white	   red   	  # error messages
+color indicator     white  	   blue  	  # selected message
+color markers       red    	   default
+color message       blue           default        # Mutt messages
+color tree          red    	   default        # Thread tree
+
+# Message display
+color normal        white          default	  # Normal pager text
+color attachment    green   	   default  	  # Attachment info
+color hdrdefault    red   	   default  	  # Pager header
+color signature     red            default  	  # Signature
+color tilde         cyan    	   default  	  # Tilde color
+color search        brightyellow   default        # Search patterns
+
+# Important headers
+color header  	    brightred      default        ^(From|Subject|Date):
+
+# Levels of quoted text
+color quoted        yellow         default
+color quoted1       cyan           default
+color quoted2       red            default
+color quoted3       green          default
+
+# Emphasis
+color bold          red            default
+color underline     yellow         default
+
+# Color definitions when on a mono screen.
+mono  bold          bold
+mono  underline     underline
+mono  indicator     reverse
+mono  error         bold
+
+# Colorize smileys:  :-)  ;-)  :-/  :-(
+color body  yellow default "[;:]-[)/(|]"
+color body  yellow default "[;:][)/(|]"
+
+# *bold*
+color body brightwhite  default "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+mono  body bold                "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+
+# _underline_
+color body brightwhite  default "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+mono  body underline           "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+
+# /italic/
+color body brightwhite  default "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+mono  body underline           "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+
+# URLs and email addresses
+color body magenta default "(ftp|http|git)://[^ ]+"
+color body magenta default [-a-z_0-9.]+@[-a-z_0-9.]+
+
+
+# Bayesian Mail Filter (bmf)
+# --------------------------
+
+# Pipe mail to SDF and classify as spam or ham.
+macro index S   "| bmf -S\n<save-message>=spam\n" "SPAM"
+macro index H   "| bmf -N\n" "HAM"
+macro pager S   "| bmf -S\n<save-message>=spam\n" "SPAM"
+macro pager H   "| bmf -N\n" "HAM"
+
+# Keybindings
+# -----------
+
+macro index Y "<save-message>=archive\n" "Archive message"
+macro pager Y "<save-message>=archive\n" "Archive message"
